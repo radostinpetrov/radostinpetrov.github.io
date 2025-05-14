@@ -1,11 +1,12 @@
-import { getPostData } from '@/lib/posts';
+import { getPostData, getAllPostIds } from '@/lib/posts';
 import { format } from 'date-fns';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+
+
 export async function generateStaticParams() {
   try {
-    const { getAllPostIds } = require('@/lib/posts');
     const posts = getAllPostIds();
     return posts;
   } catch (error) {
