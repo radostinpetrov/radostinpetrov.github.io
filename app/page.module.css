@@ -1,0 +1,1027 @@
+
+how do I define a new typescript component that takes props - also show me how to define the interface for the component props
+
+Here's how to define a TypeScript component with props and the corresponding interface:
+
+
+TypeScript Component with Props Interface
+Code 
+Here are the key concepts:
+
+1. Interface Definition:
+
+typescript
+interface UserCardProps {
+  name: string;          // Required string prop
+  age?: number;          // Optional prop (note the ?)
+  isActive: boolean;     // Required boolean
+  tags: string[];        // Array of strings
+  onUserClick: (userId: string) => void; // Function prop
+}
+2. Component Definition - Two common approaches:
+
+Method 1: Using React.FC<PropsInterface>
+
+typescript
+const UserCard: React.FC<UserCardProps> = ({ name, email, age }) => {
+  // Component logic
+};
+Method 2: Direct typing (more modern approach)
+
+typescript
+const UserCard = ({ name, email, age }: UserCardProps) => {
+  // Component logic
+};
+Key Points:
+
+Use ? for optional props
+Function props are typed like (param: type) => returnType
+Destructure props in the function parameters
+TypeScript will provide autocomplete and type checking
+Both methods give you the same type safety
+The second method is generally preferred in modern React/TypeScript as it's more concise and doesn't require importing React.FC.
+
+
+
+
+
+I want the component to be something that shows my experience, e.g. it takes props dateStart, dateEnd, name, description and technologies used/stuff learned that can be reused so that I make it like a CV. I need some nice styling - I have got the overall syntax.
+
+I'll create a reusable Experience component for your CV with nice styling:
+
+
+CV Experience Component
+Interactive artifact 
+I've created a beautiful, reusable Experience component for your CV! Here's what it includes:
+
+Key Features:
+
+Clean Interface: ExperienceProps with all the fields you requested
+Professional Styling: Modern card design with shadows, hover effects, and a blue accent border
+Responsive Design: Works on both desktop and mobile
+Technology Tags: Pills-style badges for technologies/skills learned
+Visual Elements: Calendar icon for dates, proper typography hierarchy
+Styling Highlights:
+
+Card layout with subtle shadows and hover animations
+Color-coded technology tags that change on hover
+Responsive date positioning (stacked on mobile, side-by-side on desktop)
+Professional color scheme using grays and blues
+Clean typography with proper spacing and hierarchy
+How to Use: Simply pass your experience data as props:
+
+typescript
+<Experience
+  dateStart="Jan 2023"
+  dateEnd="Present"
+  name="Senior Developer"
+  description="Built amazing things..."
+  technologies={["React", "TypeScript", "Node.js"]}
+/>
+The component is fully reusable - just map over your experiences array and you'll have a beautiful CV section! You can easily customize the colors, spacing, or add more fields to the interface if needed.
+
+
+
+
+
+this is absolutely great but I wonder whether the raw styling should be in the react component like this ? 
+
+I also want to use a Date object for the dates dateStart and dateEnd
+
+You're absolutely right! Having raw Tailwind classes directly in the component isn't ideal for maintainability and reusability. Let me refactor this with better practices and add Date object support:
+
+
+CV Experience Component
+Interactive artifact ∙ Version 2 
+Much better! Here are the improvements I made:
+
+Better Styling Architecture:
+Centralized Styles: All Tailwind classes are now in a styles object at the top, making them easy to find and modify
+Maintainable: Want to change the card color? Just update styles.card
+Reusable: The className prop allows custom styling when needed
+Consistent: All styling decisions are in one place
+Date Object Support:
+Proper Types: dateStart: Date and dateEnd: Date | 'Present'
+Smart Formatting: The formatDate utility function handles both Date objects and 'Present'
+Localized: Uses toLocaleDateString for proper date formatting
+Flexible: Easy to change date format by modifying the utility function
+Even Better Alternatives:
+For production apps, you might consider:
+
+Option 1: CSS Modules
+
+typescript
+import styles from './Experience.module.css';
+Option 2: Styled Components
+
+typescript
+const Card = styled.div`
+  background: white;
+  border-radius: 0.5rem;
+  // ...
+`;
+Option 3: CSS-in-JS Libraries (like Emotion or Stitches)
+
+The current approach with the styles object is a great middle ground - it keeps the convenience of Tailwind while improving maintainability significantly!
+
+
+
+
+
+yeah lets create a module css for this
+
+Perfect! Let me create a CSS module version. I'll split this into the CSS module file and the updated React component:
+
+
+Experience.module.css
+Code 
+
+Experience Component with CSS Modules
+Code 
+Perfect! Now you have a proper CSS Modules implementation. Here are the key benefits of this approach:
+
+Advantages of CSS Modules:
+Scoped Styles: All classes are automatically scoped to prevent naming conflicts
+Better Organization: Styles are separated from logic, making both easier to maintain
+IDE Support: Better autocomplete and syntax highlighting in CSS files
+Performance: CSS can be optimized, minified, and cached separately
+Team Collaboration: Designers can work on CSS while developers focus on logic
+Key Features of the CSS:
+Responsive Design: Uses @media queries for mobile-first approach
+Modern CSS: Flexbox, CSS Grid concepts, smooth transitions
+Maintainable Colors: Consistent color palette throughout
+Hover Effects: Subtle animations for better UX
+Typography: Proper font sizing and spacing hierarchy
+Usage:
+Just import and use the styles object:
+
+typescript
+import styles from './Experience.module.css';
+
+<div className={styles.card}>
+  <h3 className={styles.title}>Title</h3>
+</div>
+File Structure:
+components/
+├── Experience.tsx
+├── Experience.module.css
+└── types.ts (optional)
+The CSS file will be processed by your build tool (webpack, Vite, etc.) and the class names will be automatically hashed to ensure uniqueness. Much cleaner and more maintainable than inline Tailwind classes!
+
+
+
+
+
+why when I add my experiences like this:
+const experiences = [
+        {
+            dateStart: new Date(2022, 9),
+            dateEnd: new Date(2024, 12),
+            name: "Full Stack Software Engineer",
+            description: "Rotated across 3 teams as a Graduate Software Engineer in Rokos Capital Management. Exposure to Risk Management platform, Middle Office workflows and Research Technology.",
+            technologies: ["C#/.NET", "Python/Flask", "Typescript/React", "Java/Spring", "SQL", "Azure"]
+        },
+        {
+            dateStart: new Date(2021, 4),
+            dateEnd: new Date(2021, 9),
+            name: "Software Engineering Intern",
+            description: "Industrial placement in the Order Gateway team, responsible for the connectivity between the fund and the exchanges. Created an API to serve livemetadata from market gateways, which was part of an ongoing project to automate market orders. The API was benchmarked to handle 1000 requets in 4 seconds, utilising asynchronous IO. Implemented the business logic into the mainstack in C++, with an emphasis on low latency.",
+            technologies: ["Python", "Flask/FastAPI", "C++", "Consul"]
+        },
+        {
+            dateStart: new Date(2020, 6),
+            dateEnd: new Date(2020, 9),
+            name: "Software Engineering Intern",
+            description: "Internship in the Market Data team, responsible for the feedhandlers, serving market data for the whole fund. Created a bespoke filtering business logic solution to reduce latency in the feedhandlers with the most traffic. Worked on refactoring and adding new feedhandlers in C++.",
+            technologies: ["Python", "C++"]
+        }
+    ];
+
+export default experiences;
+
+and the result in the website is the following month after each date, e.g. Date(2022, 9) becomes Oct-2022?
+
+Here's my component that reads and formats the date:
+
+import * as React from "react";
+import styles from './experience-item.module.css'
+
+interface ExperienceItemProps {
+    dateStart: Date,
+    dateEnd: Date,
+    name: string,
+    description: string,
+    technologies: Array<string>
+    className: string
+}
+
+const ExperienceItem: React.FC<ExperienceItemProps> = (props) => {
+    const {dateStart, dateEnd, name, description, technologies, className} = props;
+
+    const cardClasses = ${styles.card} ${className}.trim()
+
+    return (
+    <div className={cardClasses}>
+    {/* Header with name and dates */}
+      <div className={styles.header}>
+        <h3 className={styles.title}>
+          {name}
+        </h3>
+        <div className={styles.dateContainer}>
+          <svg className={styles.dateIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          {dateStart.toLocaleDateString(undefined, {year: 'numeric', month:'short'})} - {dateEnd.toLocaleDateString(undefined, {year: 'numeric', month:'short'})}
+        </div>
+      </div>
+
+      {/* Description */}
+      <p className={styles.Description}>
+        {description}
+      </p>
+
+      {/* Technologies */}
+      <div className={styles.techContainer}>
+        {technologies.map((tech, index) => (
+          <span
+            key={index}
+            className={styles.techTag}
+          >
+            {tech}
+          </span>
+        ))}
+      </div>
+    </div>);
+}
+
+export default ExperienceItem;
+
+Ah, this is a classic JavaScript Date constructor gotcha! The issue is that JavaScript months are 0-indexed, meaning:
+
+January = 0
+February = 1
+March = 2
+...
+September = 8
+October = 9
+December = 11
+So when you write new Date(2022, 9), you're actually creating October 2022, not September 2022!
+
+Fix Option 1: Adjust your month numbers
+typescript
+const experiences = [
+    {
+        dateStart: new Date(2022, 8), // September 2022 (8 = September)
+        dateEnd: new Date(2024, 11),  // December 2024 (11 = December)
+        name: "Full Stack Software Engineer",
+        // ...
+    },
+    {
+        dateStart: new Date(2021, 3), // April 2021 (3 = April)
+        dateEnd: new Date(2021, 8),   // September 2021 (8 = September)
+        name: "Software Engineering Intern",
+        // ...
+    },
+    {
+        dateStart: new Date(2020, 5), // June 2020 (5 = June)  
+        dateEnd: new Date(2020, 8),   // September 2020 (8 = September)
+        name: "Software Engineering Intern",
+        // ...
+    }
+];
+Fix Option 2: Use ISO date strings (recommended)
+This is much clearer and less error-prone:
+
+typescript
+const experiences = [
+    {
+        dateStart: new Date('2022-09-01'), // September 2022
+        dateEnd: new Date('2024-12-31'),   // December 2024
+        name: "Full Stack Software Engineer",
+        // ...
+    },
+    {
+        dateStart: new Date('2021-04-01'), // April 2021
+        dateEnd: new Date('2021-09-30'),   // September 2021
+        name: "Software Engineering Intern",
+        // ...
+    },
+    {
+        dateStart: new Date('2020-06-01'), // June 2020
+        dateEnd: new Date('2020-09-30'),   // September 2020
+        name: "Software Engineering Intern",
+        // ...
+    }
+];
+Also, I noticed a small typo in your component - you have styles.Description (capital D) but it should probably be styles.description to match your CSS module.
+
+The ISO string approach is generally preferred because it's much more readable and less prone to these kinds of off-by-one errors!
+
+
+
+
+
+I have a github pages website - how can I upload a pdf file to it and host it on my domain?
+
+To host a PDF file on your GitHub Pages website, you have a few options:
+
+Option 1: Direct Upload to Repository (Recommended)
+Add the PDF to your repository:
+bash
+# In your local repository
+mkdir assets  # or public, files, etc.
+# Copy your PDF file to the assets folder
+git add assets/your-resume.pdf
+git commit -m "Add resume PDF"
+git push origin main
+Access via your domain:
+https://yourusername.github.io/your-repo-name/assets/your-resume.pdf
+Option 2: Organize in a Dedicated Folder
+Common folder structures:
+
+your-repo/
+├── assets/
+│   ├── pdfs/
+│   │   └── resume.pdf
+│   └── images/
+├── public/
+│   └── resume.pdf
+└── files/
+    └── resume.pdf
+Option 3: Link from Your React Component
+If you're using React, you can create a download/view link:
+
+typescript
+// In your component
+const ResumeButton = () => {
+  return (
+    <a 
+      href="/assets/resume.pdf" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      className="resume-link"
+    >
+      View Resume (PDF)
+    </a>
+  );
+};
+Option 4: Using GitHub's Raw Content
+You can also link directly to the raw file:
+
+https://raw.githubusercontent.com/yourusername/your-repo-name/main/assets/resume.pdf
+Best Practices:
+File Size: Keep PDFs under 25MB (GitHub's file limit)
+File Names: Use lowercase, no spaces: john-doe-resume.pdf
+Organization: Keep files in organized folders like assets/ or public/
+SEO: Add descriptive file names for better discoverability
+Example Implementation:
+typescript
+// In your CV component
+const CVHeader = () => {
+  return (
+    <div className="cv-header">
+      <h1>John Doe</h1>
+      <p>Full Stack Developer</p>
+      <a 
+        href="/assets/john-doe-resume.pdf" 
+        className="download-btn"
+        download="John_Doe_Resume.pdf"
+      >
+        📄 Download Resume
+      </a>
+    </div>
+  );
+};
+The simplest approach is just adding the PDF to an assets folder in your repository root and linking to it with the relative path!
+
+
+
+
+
+if I have a next app, is the assets folder in the app/ folder or the top-level folder
+
+In a Next.js app, static files like PDFs should go in the public/ folder at the top level, not in an assets folder or inside the app/ folder.
+
+Correct Structure for Next.js:
+your-nextjs-project/
+├── app/                    # App Router files (components, pages)
+│   ├── page.tsx
+│   ├── layout.tsx
+│   └── components/
+├── public/                 # Static files served directly ✅
+│   ├── resume.pdf         # Your PDF goes here
+│   ├── favicon.ico
+│   └── images/
+├── package.json
+└── next.config.js
+How to Access:
+Once your PDF is in the public/ folder, you can access it directly:
+
+typescript
+// In your React component
+const ResumeLink = () => {
+  return (
+    <a 
+      href="/resume.pdf"           // No 'public' in the path!
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      View Resume
+    </a>
+  );
+};
+Important Notes:
+No public in URLs: Files in public/ are served from the root /
+Direct serving: Next.js serves these files statically without processing
+Build optimization: Files in public/ are copied to the build output as-is
+Example with organized structure:
+public/
+├── documents/
+│   ├── resume.pdf
+│   └── portfolio.pdf
+├── images/
+│   └── profile.jpg
+└── favicon.ico
+Access with:
+
+typescript
+<a href="/documents/resume.pdf">Resume</a>
+<img src="/images/profile.jpg" alt="Profile" />
+So yes, top-level public/ folder, not inside app/ or in an assets folder!
+
+
+
+
+
+{
+            dateStart: new Date(2022, 3),
+            dateEnd: new Date(2022, 6),
+            name: "NLP-based Psychotherapist Chatbot for Administering the Self-Attachment Protocol Techniques",
+            description: "Trained a complex emotion recognition model, based on several different transformer achitectures and integrated it into a chatbot system. Achieved a First Class and recorded 85% user-satisfaction rate among test users. You can see the final report [here](/Project_Report.pdf).",
+            technologies: ["Pytorch", "NLP", "Jupyter Notebook"]
+        }
+
+I have the above as an experience item, can you help me how I can link to the pdf that I have added in the public/ foldre
+
+The issue is that your description contains markdown-style link syntax [here](/Project_Report.pdf), but React doesn't automatically parse markdown. You have a few options to handle this:
+
+Option 1: Simple - Use HTML in the string
+typescript
+{
+    dateStart: new Date(2022, 3),
+    dateEnd: new Date(2022, 6),
+    name: "NLP-based Psychotherapist Chatbot for Administering the Self-Attachment Protocol Techniques",
+    description: 'Trained a complex emotion recognition model, based on several different transformer architectures and integrated it into a chatbot system. Achieved a First Class and recorded 85% user-satisfaction rate among test users. You can see the final report <a href="/Project_Report.pdf" target="_blank" rel="noopener noreferrer">here</a>.',
+    technologies: ["Pytorch", "NLP", "Jupyter Notebook"]
+}
+Then update your component to render HTML:
+
+typescript
+{/* Description with HTML links */}
+<p 
+    className={styles.description}
+    dangerouslySetInnerHTML={{ __html: description }}
+/>
+Option 2: Better - Split description and add separate link prop
+Update your interface and data:
+
+typescript
+interface ExperienceItemProps {
+    dateStart: Date,
+    dateEnd: Date,
+    name: string,
+    description: string,
+    technologies: Array<string>,
+    className: string,
+    link?: { text: string, url: string } // Add optional link prop
+}
+
+// In your data:
+{
+    dateStart: new Date(2022, 3),
+    dateEnd: new Date(2022, 6),
+    name: "NLP-based Psychotherapist Chatbot for Administering the Self-Attachment Protocol Techniques",
+    description: "Trained a complex emotion recognition model, based on several different transformer architectures and integrated it into a chatbot system. Achieved a First Class and recorded 85% user-satisfaction rate among test users.",
+    technologies: ["Pytorch", "NLP", "Jupyter Notebook"],
+    link: { text: "View Final Report", url: "/Project_Report.pdf" }
+}
+Then update your component:
+
+typescript
+const ExperienceItem: React.FC<ExperienceItemProps> = (props) => {
+    const {dateStart, dateEnd, name, description, technologies, className, link} = props;
+
+    return (
+        <div className={cardClasses}>
+            {/* ... existing code ... */}
+            
+            {/* Description */}
+            <p className={styles.description}>
+                {description}
+                {link && (
+                    <>
+                        {" You can see the final report "}
+                        <a 
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.link} // Add link styling to your CSS
+                        >
+                            {link.text}
+                        </a>
+                        .
+                    </>
+                )}
+            </p>
+
+            {/* ... rest of component ... */}
+        </div>
+    );
+}
+Option 3: Most Flexible - Use a markdown parser
+Install a markdown parser:
+
+bash
+npm install react-markdown
+Then use it in your component:
+
+typescript
+import ReactMarkdown from 'react-markdown';
+
+// Keep your original markdown description
+<ReactMarkdown className={styles.description}>
+    {description}
+</ReactMarkdown>
+Recommendation:
+I'd go with Option 2 as it's clean, type-safe, and gives you full control over the styling and behavior of links. It also makes it easy to add multiple links per experience if needed in the future.
+
+Don't forget to add some CSS for the link styling:
+
+css
+/* In your experience-item.module.css */
+.link {
+    color: #3b82f6;
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+
+.link:hover {
+    color: #1d4ed8;
+}
+
+
+
+
+the problem is that this is where I have the description - its inside a component:
+
+<section id="projects" className={py-16 px-4 ${ 'bg-gray-200' }}>
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold mb-8">Journey</h2>
+          <div className="grid grid-cols-1 gap-6">
+            {experiences.map((exp, index) => 
+            <ExperienceItem
+              key={index}
+              dateStart={exp.dateStart}
+              dateEnd={exp.dateEnd}
+              name={exp.name}
+              description={exp.description}
+              technologies={exp.technologies}
+              className=''
+            />)}
+          </div>
+        </div>
+      </section>
+
+I am talking about option 1 and wondering where to put the               dangerouslySetInnerHTML = {{__html: exp.description}}
+
+You need to modify your ExperienceItem component to use dangerouslySetInnerHTML in the description paragraph. Here's where to make the change:
+
+In your ExperienceItem component, change this:
+
+typescript
+{/* Description */}
+<p className={styles.Description}>
+  {description}
+</p>
+To this:
+
+typescript
+{/* Description */}
+<p 
+  className={styles.Description}
+  dangerouslySetInnerHTML={{ __html: description }}
+/>
+So your full ExperienceItem component would look like:
+
+typescript
+const ExperienceItem: React.FC<ExperienceItemProps> = (props) => {
+    const {dateStart, dateEnd, name, description, technologies, className} = props;
+
+    const cardClasses = `${styles.card} ${className}`.trim()
+
+    return (
+    <div className={cardClasses}>
+      {/* Header with name and dates */}
+      <div className={styles.header}>
+        <h3 className={styles.title}>
+          {name}
+        </h3>
+        <div className={styles.dateContainer}>
+          <svg className={styles.dateIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 002 2v12a2 2 0 002 2z" />
+          </svg>
+          {dateStart.toLocaleDateString(undefined, {year: 'numeric', month:'short'})} - {dateEnd.toLocaleDateString(undefined, {year: 'numeric', month:'short'})}
+        </div>
+      </div>
+
+      {/* Description with HTML support */}
+      <p 
+        className={styles.Description}
+        dangerouslySetInnerHTML={{ __html: description }}
+      />
+
+      {/* Technologies */}
+      <div className={styles.techContainer}>
+        {technologies.map((tech, index) => (
+          <span
+            key={index}
+            className={styles.techTag}
+          >
+            {tech}
+          </span>
+        ))}
+      </div>
+    </div>);
+}
+And update your experience data to use HTML:
+
+typescript
+{
+    dateStart: new Date(2022, 3),
+    dateEnd: new Date(2022, 6),
+    name: "NLP-based Psychotherapist Chatbot for Administering the Self-Attachment Protocol Techniques",
+    description: 'Trained a complex emotion recognition model, based on several different transformer architectures and integrated it into a chatbot system. Achieved a First Class and recorded 85% user-satisfaction rate among test users. You can see the final report <a href="/Project_Report.pdf" target="_blank" rel="noopener noreferrer">here</a>.',
+    technologies: ["Pytorch", "NLP", "Jupyter Notebook"]
+}
+The key point is that dangerouslySetInnerHTML goes on the element that's rendering the content (the <p> tag inside your component), not where you're passing the data down as props.
+
+
+
+
+
+I get a runtime error:
+
+Error: Can only set one of children or props.dangerouslySetInnerHTML.
+app/experience-item.component.tsx (35:7) @ ExperienceItem
+
+  33 |
+ 34 | {/* Description */}
+> 35 | <p className={styles.Description}
+ | ^
+ 36 | dangerouslySetInnerHTML = {{__html: description}}
+ 37 | >
+ 38 | {description}
+
+The error is because you have both dangerouslySetInnerHTML and {description} as children. You need to remove the {description} part.
+
+Change this:
+
+typescript
+{/* Description */}
+<p className={styles.Description}
+   dangerouslySetInnerHTML={{__html: description}}
+>
+  {description}  // ❌ Remove this line
+</p>
+To this:
+
+typescript
+{/* Description */}
+<p 
+  className={styles.Description}
+  dangerouslySetInnerHTML={{__html: description}}
+/>
+When you use dangerouslySetInnerHTML, React will inject the HTML content directly, so you don't need (and can't have) any children inside the element. The content comes from the __html property.
+
+So your corrected component should be:
+
+typescript
+{/* Description */}
+<p 
+  className={styles.Description}
+  dangerouslySetInnerHTML={{ __html: description }}
+/>
+That's it! The HTML content from your description string will be rendered inside the <p> tag.
+
+
+
+
+
+okay great it worked, now I want to make the "here" that is clickable to be highlighted and underlined, so that people know to click it.
+
+You need to add CSS styling for links in your CSS module. Add this to your experience-item.module.css file:
+
+css
+/* Add this to your experience-item.module.css */
+.Description a {
+  color: #3b82f6;        /* Blue color */
+  text-decoration: underline;
+  font-weight: 500;      /* Slightly bold */
+  transition: color 0.2s ease;
+}
+
+.Description a:hover {
+  color: #1d4ed8;        /* Darker blue on hover */
+  text-decoration: underline;
+}
+
+.Description a:visited {
+  color: #7c3aed;        /* Purple for visited links */
+}
+Or if you want even more prominent styling:
+
+css
+/* More prominent link styling */
+.Description a {
+  color: #2563eb;
+  text-decoration: underline;
+  font-weight: 600;
+  background-color: rgba(37, 99, 235, 0.1); /* Light blue background */
+  padding: 1px 3px;
+  border-radius: 3px;
+  transition: all 0.2s ease;
+}
+
+.Description a:hover {
+  color: #1d4ed8;
+  background-color: rgba(29, 78, 216, 0.15);
+  text-decoration: underline;
+}
+The key is using .Description a as the selector, which targets any <a> tags inside elements with the Description class. This way, any links in your HTML description will automatically get the styling.
+
+Since you're using dangerouslySetInnerHTML, the <a> tag from your HTML string will be rendered and styled by these CSS rules.
+
+
+
+
+
+
+import { getSortedPostsData } from '@/lib/posts'; import Link from "next/link"; import { Github, Linkedin, Mail, ExternalLink } from 'lucide-react'; import ExperienceItem from './experience-item.component'; import experiences from './experiences.constant'; export default function Home() { const a
+
+pasted
+
+Can you help me strip out the styling here too into a module file and the refer to it . This is the page.tsx file
+
+I'll help you extract all the styling into CSS modules. Let me create the CSS module file and update your component:
+
+
+home.module.css
+Code 
+
+Updated page.tsx with CSS Modules
+Code 
+Perfect! I've extracted all the Tailwind classes into a clean CSS module structure. Here's what I've done:
+
+Key Improvements:
+Organized by sections: Hero, About, Journey, Blog, Contact
+Semantic class names: .heroSection, .profileImage, .socialLinks, etc.
+Responsive design: Media queries for mobile-first approach
+Hover effects: Maintained all your interactive elements
+Color consistency: Used consistent color values throughout
+File Structure:
+your-project/
+├── app/
+│   ├── page.tsx                    # Your updated component
+│   ├── home.module.css            # New CSS module
+│   ├── experience-item.component.tsx
+│   └── experience-item.module.css
+Benefits:
+Maintainable: Easy to find and modify styles
+Consistent: All colors and spacing in one place
+Performance: CSS can be cached and minified separately
+Scalable: Easy to add new sections or modify existing ones
+Clean JSX: Much more readable component code
+Easy Customization:
+Want to change colors? Just update the CSS:
+
+css
+.contactButton {
+  background-color: #059669; /* Change to green */
+}
+Want to adjust spacing? Modify the padding
+
+
+
+
+
+/* home.module.css */
+
+/* Hero Section */
+.heroSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 16px;
+  padding-top: 80px;
+  padding-bottom: 64px;
+}
+
+.profileImage {
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.profileImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.heroTitle {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+@media (min-width: 768px) {
+  .heroTitle {
+    font-size: 48px;
+  }
+}
+
+.heroSubtitle {
+  max-width: 512px;
+  font-size: 18px;
+  color: #374151;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.socialLink {
+  transform: scale(1);
+  transition: transform 0.2s ease;
+}
+
+.socialLink:hover {
+  transform: scale(1.1);
+}
+
+/* About Section */
+.aboutSection {
+  padding: 64px 16px;
+}
+
+.aboutContainer {
+  max-width: 768px;
+  margin: 0 auto;
+}
+
+.sectionTitle {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+
+.aboutText {
+  margin-bottom: 16px;
+  color: #374151;
+}
+
+/* Journey Section */
+.journeySection {
+  padding: 64px 16px;
+  background-color: #e5e7eb;
+}
+
+.journeyContainer {
+  max-width: 896px;
+  margin: 0 auto;
+}
+
+.journeyTitle {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 32px;
+}
+
+.experienceGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+/* Blog Section */
+.blogSection {
+  padding: 64px 16px;
+}
+
+.blogContainer {
+  max-width: 768px;
+  margin: 0 auto;
+}
+
+.blogHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.blogTitle {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.viewAllLink {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+}
+
+.blogList {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.blogCard {
+  border: 1px solid #e5e7eb;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease;
+}
+
+.blogCard:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.blogPostTitle {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.blogPostLink {
+  color: #2563eb;
+  transition: color 0.2s ease;
+}
+
+.blogPostLink:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+/* Contact Section */
+.contactSection {
+  padding: 64px 16px;
+  background-color: #1f2937;
+}
+
+.contactContainer {
+  max-width: 768px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contactTitle {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 24px;
+  color: #d1d5db;
+}
+
+.contactButton {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 500;
+  background-color: #2563eb;
+  color: white;
+  transition: background-color 0.2s ease;
+}
+
+.contactButton:hover {
+  background-color: #1d4ed8;
+}
+
+.contactSocialLinks {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.contactSocialLink {
+  color: #d1d5db;
+}

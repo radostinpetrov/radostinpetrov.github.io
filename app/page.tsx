@@ -1,6 +1,8 @@
 import { getSortedPostsData } from '@/lib/posts';
 import Link from "next/link";
-import { Github, Twitter, Linkedin, Mail, ExternalLink } from 'lucide-react';
+import { Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
+import ExperienceItem from './experience-item.component';
+import experiences from './experiences.constant';
 
 export default function Home() {
   const allPostsData = getSortedPostsData();
@@ -16,21 +18,14 @@ export default function Home() {
             className="w-full h-full object-cover" />
         </div>
         <h1 className="text-4xl md:text-5xl font-bold mb-4">Hey, I&apos;m Rado</h1>
-        <h2 className="text-xl md:text-2xl mb-8 h-8">
-          <span className="font-mono">{`Welcome to my space.`}</span>
-          <span className="animate-pulse">|</span>
-        </h2>
         <p className={`max-w-lg text-lg ${ 'text-black-300' }`}>
-          Passionate about passion. 
+          Welcome to my space.
         </p>
 
         {/* Social links */}
         <div className="flex gap-6 mt-8">
           <a href="https://github.com/radostinpetrov" className="transform hover:scale-110 transition-transform" aria-label="GitHub">
             <Github size={24} />
-          </a>
-          <a href="https://twitter.com/yourusername" className="transform hover:scale-110 transition-transform" aria-label="Twitter">
-            <Twitter size={24} />
           </a>
           <a href="https://linkedin.com/in/radostin-petrov" className="transform hover:scale-110 transition-transform" aria-label="LinkedIn">
             <Linkedin size={24} />
@@ -48,38 +43,26 @@ export default function Home() {
           <p className={`mb-4 ${ 'text-black-300' }`}>
             I&apos;m a software engineer based in London, UK. I have graduated from Imperial College London with 
             a MEng in Computing. I worked as a software developer in the hedge fund space and have full-stack 
-            experience.
+            experience. I enjoy working in an agile setting, and researching cutting-edge tools to solve hefty problems.
           </p>
         </div>
       </section>
 
-      {/* Projects section */}
-      <section id="projects" className={`py-16 px-4 ${ 'bg-gray-800' }`}>
+      {/* Journey section */}
+      <section id="projects" className={`py-16 px-4 ${ 'bg-gray-200' }`}>
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold mb-8">Featured Projects</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[1, 2, 3, 4].map((item) => (
-              <div key={item} className={`rounded-lg overflow-hidden shadow-md ${ 'bg-gray-700' }`}>
-                <img
-                  src={`/api/placeholder/600/400?text=Project ${item}`}
-                  alt={`Project ${item}`}
-                  className="w-full h-48 object-cover" />
-                <div className="p-6">
-                  <h3 className="font-bold text-lg mb-2">Project Title {item}</h3>
-                  <p className={`mb-4 ${ 'text-gray-300' }`}>
-                    A brief description of this amazing project and the technologies used to build it.
-                  </p>
-                  <div className="flex gap-4">
-                    <a href="#" className="flex items-center gap-1 text-sm">
-                      <Github size={16} /> <span>Source</span>
-                    </a>
-                    <a href="#" className="flex items-center gap-1 text-sm">
-                      <ExternalLink size={16} /> <span>Demo</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ))}
+          <h2 className="text-2xl font-bold mb-8">Journey</h2>
+          <div className="grid grid-cols-1 gap-6">
+            {experiences.map((exp, index) => 
+            <ExperienceItem
+              key={index}
+              dateStart={exp.dateStart}
+              dateEnd={exp.dateEnd}
+              name={exp.name}
+              description={exp.description}
+              technologies={exp.technologies}
+              className=''
+            />)}
           </div>
         </div>
       </section>
@@ -124,9 +107,6 @@ export default function Home() {
           <div className="flex justify-center gap-6 mt-8">
             <a href="https://github.com/yourusername" aria-label="GitHub">
               <Github size={20} />
-            </a>
-            <a href="https://twitter.com/yourusername" aria-label="Twitter">
-              <Twitter size={20} />
             </a>
             <a href="https://linkedin.com/in/yourusername" aria-label="LinkedIn">
               <Linkedin size={20} />

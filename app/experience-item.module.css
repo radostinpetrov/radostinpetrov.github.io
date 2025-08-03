@@ -1,0 +1,131 @@
+/* Experience.module.css */
+
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  padding: 24px;
+  margin-bottom: 24px;
+  border-left: 4px solid #3b82f6;
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+@media (min-width: 640px) {
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 8px;
+}
+
+@media (min-width: 640px) {
+  .title {
+    margin-bottom: 0;
+  }
+}
+
+.dateContainer {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #6b7280;
+  background-color: #f3f4f6;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  width: fit-content;
+}
+
+.dateIcon {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+}
+
+.description {
+  color: #374151;
+  margin-bottom: 16px;
+  line-height: 1.625;
+}
+
+.techContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.techTag {
+  padding: 4px 12px;
+  margin-top: 6px;
+  background-color: #dbeafe;
+  color: #1e40af;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 9999px;
+  transition: background-color 0.2s ease;
+}
+
+.techTag:hover {
+  background-color: #bfdbfe;
+}
+
+/* Page-level styles */
+.pageContainer {
+  max-width: 896px;
+  margin: 0 auto;
+  padding: 24px;
+  background-color: #f9fafb;
+  min-height: 100vh;
+}
+
+.pageHeader {
+  margin-bottom: 32px;
+}
+
+.pageTitle {
+  font-size: 30px;
+  font-weight: bold;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.pageSubtitle {
+  color: #6b7280;
+}
+
+.experienceList {
+  display: flex;
+  flex-direction: column;
+}
+
+.Description a {
+  color: #2563eb;
+  text-decoration: underline;
+  font-weight: 600;
+  background-color: rgba(37, 99, 235, 0.1); /* Light blue background */
+  padding: 1px 3px;
+  border-radius: 3px;
+  transition: all 0.2s ease;
+}
+
+.Description a:hover {
+  color: #1d4ed8;
+  background-color: rgba(29, 78, 216, 0.15);
+  text-decoration: underline;
+}
