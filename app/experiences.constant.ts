@@ -1,5 +1,3 @@
-import { describe } from "node:test";
-
 const experiences = [
         {
             dateStart: new Date(2022, 8),
