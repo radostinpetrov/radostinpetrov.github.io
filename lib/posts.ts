@@ -17,7 +17,7 @@ export interface PostData {
 export function getSortedPostsData(): PostData[] {
   try {
     // Get file names under /posts
-    if (!fs.existsSync(postsDirectory)) {
+    if (!fs.existsDirectory(postsDirectory)) {
       console.warn(`Posts directory not found at ${postsDirectory}`);
       return [];
     }
@@ -73,7 +73,6 @@ export function getAllPostIds() {
     }
     
     const fileNames = fs.readdirSync(postsDirectory);
-    console.log("Found files for static paths:", fileNames);
     
     return fileNames
       .filter(fileName => fileName.endsWith('.md'))
@@ -105,8 +104,11 @@ export async function getPostData(id: string): Promise<PostData> {
   const matterResult = matter(fileContents);
 
   // Use remark to convert markdown into HTML string
+  // Configure to allow raw HTML
   const processedContent = await remark()
-    .use(html)
+    .use(html, {
+      sanitize: false  // Allow raw HTML tags
+    })
     .process(matterResult.content);
   const contentHtml = processedContent.toString();
 

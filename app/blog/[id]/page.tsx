@@ -2,8 +2,7 @@ import { getPostData, getAllPostIds } from '@/lib/posts';
 import { format } from 'date-fns';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-
-
+import styles from './blog.module.css';
 
 export async function generateStaticParams() {
   try {
@@ -30,19 +29,19 @@ export default async function Post({ params }: { params: Promise<{ id?: string }
     const postData = await getPostData(id);
     
     return (
-      <article className="max-w-3xl mx-auto py-10 px-4">
-        <div className="mb-10">
-          <Link href="/blog" className="text-blue-600 hover:text-blue-800 mb-4 inline-block">
+      <article className={styles.article}>
+        <div className={styles.header}>
+          <Link href="/blog" className={styles.backLink}>
             ← Back to all posts
           </Link>
-          <h1 className="text-4xl font-bold mb-2">{postData.title}</h1>
-          <div className="text-gray-500">
+          <h1 className={styles.title}>{postData.title}</h1>
+          <div className={styles.date}>
             {format(new Date(postData.date), 'MMMM d, yyyy')}
           </div>
         </div>
         
         <div 
-          className="prose lg:prose-xl max-w-none"
+          className={styles.prose}
           dangerouslySetInnerHTML={{ __html: postData.contentHtml || '' }} 
         />
       </article>
@@ -50,10 +49,10 @@ export default async function Post({ params }: { params: Promise<{ id?: string }
   } catch (error) {
     console.error(`Error loading post ${id}:`, error);
     return (
-      <div className="max-w-3xl mx-auto py-10 px-4">
-        <h1>Error Loading Post</h1>
-        <p>Unable to load the requested blog post.</p>
-        <Link href="/blog" className="text-blue-600 hover:text-blue-800">
+      <div className={styles.errorContainer}>
+        <h1 className={styles.errorTitle}>Error Loading Post</h1>
+        <p className={styles.errorText}>Unable to load the requested blog post.</p>
+        <Link href="/blog" className={styles.errorLink}>
           Return to blog
         </Link>
       </div>
