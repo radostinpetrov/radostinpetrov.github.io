@@ -18,6 +18,8 @@ export default function Home() {
             <Image
               src="/me.jpeg"
               alt="Your profile"
+              width="300"
+              height="300"
             />
           </div>
           <h1 className={styles.heroTitle}>Hey, I&apos;m Rado</h1>

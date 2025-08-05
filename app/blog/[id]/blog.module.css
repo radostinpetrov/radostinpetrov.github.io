@@ -11,14 +11,14 @@
 }
 
 .backLink {
-  color: #2563eb;
+  color: #d4b200;
   margin-bottom: 16px;
   display: inline-block;
   transition: color 0.2s ease;
 }
 
 .backLink:hover {
-  color: #1d4ed8;
+  color: #b89c00;
 }
 
 .title {
@@ -48,12 +48,12 @@
 }
 
 .errorLink {
-  color: #2563eb;
+  color: #d4b200;
   transition: color 0.2s ease;
 }
 
 .errorLink:hover {
-  color: #1d4ed8;
+  color: #b89c00;
 }
 
 /* Markdown Content Styling */
@@ -125,14 +125,14 @@
 }
 
 .prose a {
-  color: #2563eb;
+  color: #d4b200;
   text-decoration: underline;
   font-weight: 500;
   transition: color 0.2s ease;
 }
 
 .prose a:hover {
-  color: #1d4ed8;
+  color: #b89c00;
 }
 
 .prose strong {

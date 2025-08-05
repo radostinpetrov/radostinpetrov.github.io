@@ -6,7 +6,7 @@
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   padding: 24px;
   margin-bottom: 24px;
-  border-left: 4px solid #3b82f6;
+  border-left: 4px solid #d4b200;
   transition: box-shadow 0.3s ease;
 }
 
@@ -73,8 +73,8 @@
 .techTag {
   padding: 4px 12px;
   margin-top: 6px;
-  background-color: #dbeafe;
-  color: #1e40af;
+  background-color: #fff8e1;
+  color: #b89c00;
   font-size: 14px;
   font-weight: 500;
   border-radius: 9999px;
@@ -82,7 +82,7 @@
 }
 
 .techTag:hover {
-  background-color: #bfdbfe;
+  background-color: #f5e7b2;
 }
 
 /* Page-level styles */
@@ -115,17 +115,17 @@
 }
 
 .Description a {
-  color: #2563eb;
+  color: #d4b200;
   text-decoration: underline;
   font-weight: 600;
-  background-color: rgba(37, 99, 235, 0.1); /* Light blue background */
+  background-color: rgba(212, 178, 0, 0.1); /* Light yellow background */
   padding: 1px 3px;
   border-radius: 3px;
   transition: all 0.2s ease;
 }
 
 .Description a:hover {
-  color: #1d4ed8;
-  background-color: rgba(29, 78, 216, 0.15);
+  color: #b89c00;
+  background-color: rgba(184, 156, 0, 0.15);
   text-decoration: underline;
 }

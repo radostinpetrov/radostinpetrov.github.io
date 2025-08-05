@@ -157,12 +157,12 @@
 }
 
 .blogPostLink {
-  color: #2563eb;
+  color: #d4b200;
   transition: color 0.2s ease;
 }
 
 .blogPostLink:hover {
-  color: #1d4ed8;
+  color: #b89c00;
   text-decoration: underline;
 }
 
@@ -190,13 +190,13 @@
   padding: 12px 24px;
   border-radius: 8px;
   font-weight: 500;
-  background-color: #2563eb;
+  background-color: #d4b200;
   color: white;
   transition: background-color 0.2s ease;
 }
 
 .contactButton:hover {
-  background-color: #1d4ed8;
+  background-color: #b89c00;
 }
 
 .contactSocialLinks {

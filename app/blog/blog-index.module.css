@@ -1,0 +1,80 @@
+/* blog-index.module.css */
+
+.container {
+  max-width: 64rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.card {
+  border: 1px solid #e5e7eb;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+  transition: box-shadow 0.2s ease;
+}
+.card:hover {
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+}
+
+.cardTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.cardLink {
+  color: #d4b200;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+.cardLink:hover {
+  color: #b89c00;
+}
+
+.date {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin-bottom: 0.75rem;
+}
+
+.description {
+  color: #374151;
+}
+
+.readMoreWrap {
+  margin-top: 1rem;
+}
+
+.readMore {
+  color: #d4b200;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+.readMore:hover {
+  color: #b89c00;
+}
+
+.empty {
+  color: #374151;
+}
+
+.error {
+  color: #dc2626;
+} 
