@@ -3,7 +3,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'My Website',
+  title: 'Rado\'s Space',
   description: 'My personal website built with Next.js',
 };
 

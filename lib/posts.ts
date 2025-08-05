@@ -17,7 +17,7 @@ export interface PostData {
 export function getSortedPostsData(): PostData[] {
   try {
     // Get file names under /posts
-    if (!fs.existsDirectory(postsDirectory)) {
+    if (!fs.existsSync(postsDirectory)) {
       console.warn(`Posts directory not found at ${postsDirectory}`);
       return [];
     }

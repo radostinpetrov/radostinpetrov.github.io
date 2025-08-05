@@ -4,6 +4,7 @@ import { Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
 import ExperienceItem from './experience-item.component';
 import experiences from './experiences.constant';
 import styles from './page.module.css';
+import Image from 'next/image'
 
 export default function Home() {
   const allPostsData = getSortedPostsData();
@@ -14,7 +15,7 @@ export default function Home() {
         {/* Hero Section */}
         <section className={styles.heroSection}>
           <div className={styles.profileImage}>
-            <img
+            <Image
               src="/me.jpeg"
               alt="Your profile"
             />
