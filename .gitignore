@@ -9,3 +9,4 @@ node_modules
 .next
 _next
 out/
+.env*.local
