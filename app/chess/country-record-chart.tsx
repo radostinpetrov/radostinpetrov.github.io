@@ -12,7 +12,7 @@ export default function CountryRecordChart({
     title: { text: `Record by opponent country — ${user}`, subtext: updatedAt ? `Updated ${new Date(updatedAt).toLocaleString()}` : '' },
     xAxis: { type: 'value' },
     yAxis: { type: 'category', data: countries },
-    series: [{ type: 'bar', data: scores, itemStyle: { color: (p: any) => colors[p.dataIndex] } }],
+    series: [{ type: 'bar', data: scores, itemStyle: { color: (p: { dataIndex: number }) => colors[p.dataIndex] } }],
     grid: { left: 120, right: 20, top: 60, bottom: 40 }
   };
 

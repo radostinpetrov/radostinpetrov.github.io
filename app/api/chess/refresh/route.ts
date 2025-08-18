@@ -65,7 +65,8 @@ export async function GET(req: Request) {
     });
 
     return NextResponse.json({ ok: true, path, url: blob.url });
-  } catch (e: any) {
-    return NextResponse.json({ ok: false, error: e?.message ?? 'unknown' }, { status: 500 });
+  } catch (e: unknown) {
+    const message = e instanceof Error ? e.message : 'unknown';
+    return NextResponse.json({ ok: false, error: message }, { status: 500 });
   }
 }
