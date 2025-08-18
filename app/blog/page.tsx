@@ -8,7 +8,6 @@ export default function Blog() {
   
   try {
     const allPostsData = getSortedPostsData();
-    console.log("Found posts:", allPostsData);
     
     if (allPostsData.length === 0) {
       return (
