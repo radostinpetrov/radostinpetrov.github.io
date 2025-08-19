@@ -1,9 +1,6 @@
 import { NextResponse } from 'next/server';
 import { put } from '@vercel/blob';
 
-export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
-
 const GAME_CODES: Record<string, number> = {
   win: 1, checkmated: -1, agreed: 0, repetition: 0, timeout: -1, resigned: -1,
   stalemate: 0, lose: -1, insufficient: 0, '50move': 0, abandoned: -1, timevsinsufficient: 0,

@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "prebuild:export": "if [ \"$STATIC_EXPORT\" = \"true\" ] || [ \"$GITHUB_PAGES\" = \"true\" ]; then mv app/api app_api_tmp || true; fi",
+    "build": "npm run prebuild:export && next build && npm run postbuild:export",
+    "postbuild:export": "if [ \"$STATIC_EXPORT\" = \"true\" ] || [ \"$GITHUB_PAGES\" = \"true\" ]; then touch out/.nojekyll; mv app_api_tmp app/api || true; fi",
     "start": "next start",
     "lint": "next lint"
   },
