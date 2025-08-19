@@ -45,18 +45,41 @@ export default function Page() {
     };
   }, [apiBase, user]);
 
-  if (loading) return <p>Loading…</p>;
+  if (loading) return (
+    <div className="max-w-4xl mx-auto px-4 py-8">
+      <p>Loading…</p>
+    </div>
+  );
   if (error) {
     const refreshHref = `${apiBase}/api/chess/refresh?user=${encodeURIComponent(user)}`;
     return (
-      <div>
-        <p>Could not load chess data: {error}</p>
-        <p>
-          Try <a href={refreshHref}>refreshing the dataset</a> and then reload this page.
-        </p>
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+          <h1 className="text-xl font-semibold mb-2">Chess — Country Record</h1>
+          <p className="text-gray-600 mb-4">
+            Could not load chess data: {error}
+          </p>
+          <p className="text-gray-600">
+            Try <a className="text-blue-600 hover:underline" href={refreshHref}>refreshing the dataset</a> and then reload this page.
+          </p>
+        </div>
       </div>
     );
   }
-  if (!record) return <p>No data.</p>;
-  return <CountryRecordChart data={record.data} user={record.user} updatedAt={record.updatedAt} />;
+  if (!record) return (
+    <div className="max-w-4xl mx-auto px-4 py-8">
+      <p>No data.</p>
+    </div>
+  );
+  return (
+    <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+        <h1 className="text-xl font-semibold mb-2">Chess — Country Record</h1>
+        <p className="text-gray-600 mb-6">
+          Aggregated score of my games on Chess.com by opponent country. Positive bars mean a net positive score; negative bars mean net losses.
+        </p>
+        <CountryRecordChart data={record.data} user={record.user} updatedAt={record.updatedAt} />
+      </div>
+    </div>
+  );
 }
