@@ -1,6 +1,16 @@
 import { NextResponse } from 'next/server';
 import { put } from '@vercel/blob';
 
+const CORS_HEADERS: Record<string, string> = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+};
+
+export async function OPTIONS() {
+  return new Response(null, { status: 204, headers: CORS_HEADERS });
+}
+
 const GAME_CODES: Record<string, number> = {
   win: 1, checkmated: -1, agreed: 0, repetition: 0, timeout: -1, resigned: -1,
   stalemate: 0, lose: -1, insufficient: 0, '50move': 0, abandoned: -1, timevsinsufficient: 0,
@@ -61,9 +71,9 @@ export async function GET(req: Request) {
       contentType: 'application/json'
     });
 
-    return NextResponse.json({ ok: true, path, url: blob.url });
+    return NextResponse.json({ ok: true, path, url: blob.url }, { headers: CORS_HEADERS });
   } catch (e: unknown) {
     const message = e instanceof Error ? e.message : 'unknown';
-    return NextResponse.json({ ok: false, error: message }, { status: 500 });
+    return NextResponse.json({ ok: false, error: message }, { status: 500, headers: CORS_HEADERS });
   }
 }
