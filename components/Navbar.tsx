@@ -32,6 +32,12 @@ export default function Navbar() {
               >
                 Chess
               </Link>
+                <Link 
+                href="/music" 
+                className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+              >
+                Music
+              </Link>
             </div>
           </div>
         </div>
