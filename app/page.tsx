@@ -58,9 +58,10 @@ export default function Home() {
           <div className={styles.aboutContainer}>
             <h2 className={styles.sectionTitle}>About Me</h2>
             <p className={styles.aboutText}>
-              I&apos;m a software engineer based in London, UK. I have graduated from Imperial College London with 
-              a MEng in Computing. I worked as a software developer in the hedge fund space and have full-stack 
-              experience. I enjoy working in an agile setting, and researching cutting-edge tools to solve hefty problems.
+              I&apos;m a software engineer based in Sofia, Bulgaria. I have graduated from Imperial College London with 
+              a MEng in Computing.  I am currently working in Yotpo, an E-commerce platform for retention marketing.
+              I have also worked as a software developer in the hedge fund space and have full-stack experience. 
+              I enjoy working in an agile setting, and researching cutting-edge tools to solve hefty problems.
             </p>
           </div>
         </section>
